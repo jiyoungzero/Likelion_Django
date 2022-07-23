@@ -67,3 +67,28 @@ def create_comment(request, post_id):
     new_comment.post = get_object_or_404(Post, pk=post_id)
     new_comment.save()
     return redirect('main:detail', post_id)
+
+def edit_comment(request, post_id, comment_id):
+    # edit_post = Post.objects.get(id=id)
+    post = Post.objects.get(id = post_id)
+    edit_comment = Comment.objects.get(id = comment_id)
+    return render(request, 'main/edit_comment.html', {'post':post, 'comment':edit_comment})
+
+def update_comment(request, post_id, comment_id):
+    update_comment=get_object_or_404(Comment,pk=comment_id)
+    if request.method == "POST":
+        update_comment.content =request.POST['content']
+        update_comment.save()
+        return redirect('main:detail', update_comment.id)
+    return render(request,'main:detail',{'comment':update_comment})
+
+## 내가 하고 싶은 방식 > 오류
+# def delete_comment(request, post_id, comment_id):
+#     delete_comment = Comment.object.get(id = comment_id)
+#     delete_comment.delete()
+#     return redirect('main:detail', post_id)
+
+def delete_comment(request, comment_id):
+    delete_comment = Comment.objects.get(id=comment_id)
+    delete_comment.delete()
+    return redirect('main:posts')

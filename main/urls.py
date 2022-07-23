@@ -21,4 +21,8 @@ urlpatterns = [
     path('update/<int:id>', update, name="update"),
     path('delete/<int:id>', delete, name="delete"),
     path('<str:post_id>/create_comment', create_comment, name="create_comment"),
+    
+    path('<str:post_id>/<str:comment_id>/edit_comment', edit_comment, name="edit_comment"),    
+    path('<str:post_id>/<str:comment_id>/update_comment', update_comment, name="update_comment"),    
+    path('<str:comment_id>/delete_comment', delete_comment, name="delete_comment"),
 ]
