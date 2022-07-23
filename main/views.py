@@ -1,7 +1,11 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Post, Comment
+from .models import Post, Comment,Like, Dislike,User
 from django.utils import timezone
 
+from django.views.decorators.http import require_POST
+from django.http import HttpResponse
+import json
+from django.contrib.auth.decorators import login_required
 
 # mainpage view 함수
 def showmain(request):
@@ -82,13 +86,50 @@ def update_comment(request, post_id, comment_id):
         return redirect('main:detail', update_comment.id)
     return render(request,'main:detail',{'comment':update_comment})
 
-## 내가 하고 싶은 방식 > 오류
-# def delete_comment(request, post_id, comment_id):
-#     delete_comment = Comment.object.get(id = comment_id)
-#     delete_comment.delete()
-#     return redirect('main:detail', post_id)
 
 def delete_comment(request, comment_id):
     delete_comment = Comment.objects.get(id=comment_id)
     delete_comment.delete()
     return redirect('main:detail', delete_comment.post.id)
+
+@require_POST
+@login_required
+def like_toggle(request, post_id):
+    post = get_object_or_404(Post, pk = post_id)
+    post_like, post_like_created = Like.objects.get_or_create(user=request.user, post=post)
+
+    if not post_like_created:
+        post_like.delete()
+        result = "like_cancel"
+    else:
+        result = "like"
+    context = {
+        "like_count" : post.like_count,
+        "result" : result
+    }
+    return HttpResponse(json.dumps(context), content_type = "application/json")
+
+@require_POST
+@login_required
+def dislike_toggle(request, post_id):
+    post = get_object_or_404(Post, pk = post_id)
+    post_dislike, post_dislike_created = Dislike.objects.get_or_create(user=request.user, post=post)
+
+    if not post_dislike_created:
+        post_dislike.delete()
+        result = "dislike_cancel"
+    else:
+        result = "dislike"
+    context = {
+        "dislike_count" : post.dislike_count,
+        "result" : result
+    }
+    return HttpResponse(json.dumps(context), content_type = "application/json")
+
+def my_like(request, user_id):
+    user = User.objects.get(id = user_id)
+    like_list = Like.objects.filter(user = user)
+    context = {
+        'like_list' : like_list,
+    }
+    return render(request, 'main/my_like.html', context)
