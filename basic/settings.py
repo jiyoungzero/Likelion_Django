@@ -33,11 +33,20 @@ ALLOWED_HOSTS = ['*']
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
+    'django.contrib.sites',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'main',
+    # 'accounts',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    "users",
+    
+    # providers
+    'allauth.socialaccount.providers.google',
 ]
 
 MIDDLEWARE = [
@@ -55,7 +64,7 @@ ROOT_URLCONF = 'basic.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        #template 상속 세팅!!!!!!!!!!!!!!!!!!!!!!!!!
+        # template 상속 세팅!!!!!!!!!!!!!!!!!!!!!!!!!
         'DIRS': [os.path.join(BASE_DIR, 'basic', 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -64,7 +73,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                
+
 
             ],
         },
@@ -119,21 +128,30 @@ USE_TZ = False
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = 'static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# STATIC 상속 설정
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'basic', 'static')]
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
-MEDIA_ROOT = os.path.join(BASE_DIR,'media')
-#이용자가 업로드한 파일을 모으는 곳
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
-#STATIC 상속 설정
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'basic', 'static')
+AUTHENTICATION_BACKENDS=[
+    #superuser 로그인 기능
+    'django.contrib.auth.backends.ModelBackend',
+    #이메일 등의 로그인 기능
+    'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+# admin 페이지 관리 번호, 단일서버는 1 입력
+SITE_ID = 1
+
+# 로그인 시 이동하는 페이지, 만약 글 목록으로 이동하고 싶다면 '/posts'
+LOGIN_REDIRECT_URL = '/' #메인화면으로 이동
+ACCOUNT_EMAIL_VERIFICATION ='none'

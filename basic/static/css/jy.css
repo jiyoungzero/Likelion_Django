@@ -1,0 +1,16 @@
+.hi{
+    color : orange;
+}
+.content {
+    font-weight: 400px;
+    font-size: large;
+    /* text-align: center; */
+    margin-bottom: 20px;
+}
+  
+.hi {
+    margin-top: 20px;
+}
+/* .header {
+    text-align: center;
+} */

@@ -1,0 +1,24 @@
+{% extends 'base.html' %} {% block content %} {% load static %}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Jiyeong Page</title>
+    <link rel="stylesheet" href="{% static 'css/project.css' %}" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1 class="hi">Hello !,</h1>
+      </div>
+      <div class="content">
+        <p>Major / Name : 정보통신공학과 19학번 이지영</p>
+        <p>Club : 멋쟁이 사자처럼 </p>
+        <p>MBTI : INTP</p>
+        <p>Bday : July, 30</p>
+        <a class = "backtoHome" href="/"> 🥕 </a>
+      </div>
+    </div>
+  </body>
+</html>
+{% endblock %}
