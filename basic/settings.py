@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 import os
 from pathlib import Path
-
+from django.contrib import messages
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -155,3 +155,11 @@ SITE_ID = 1
 # 로그인 시 이동하는 페이지, 만약 글 목록으로 이동하고 싶다면 '/posts'
 LOGIN_REDIRECT_URL = '/' #메인화면으로 이동
 ACCOUNT_EMAIL_VERIFICATION ='none'
+
+MESSAGE_TAGS = {
+    messages.DEBUG: 'alert-info',
+    messages.INFO: 'alert-info',
+    messages.SUCCESS: 'alert-success',
+    messages.WARNING: 'alert-warning',
+    messages.ERROR: 'alert-danger',
+}

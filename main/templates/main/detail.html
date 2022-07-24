@@ -82,9 +82,13 @@
     {% endfor %}
     <hr>
     <a href="{% url 'main:posts' %} ">⏪이전페이지로</a>
+
+{% comment %} 게시글/댓글 수정,삭제 권한 메세지 {% endcomment %}
     {% for message in messages %}
-        {{ message.tag }}
-        {{ message }}
+    <div class="alert {{ message.tags }} alert-auto-dismissible alert-dismissible notification-container text-center" role="alert">
+            {% comment %} <span aria-hidden="true">&times;</span> {% endcomment %}
+            🚫{{ message }}🚫
+    </div>
     {% endfor %}
 
 
