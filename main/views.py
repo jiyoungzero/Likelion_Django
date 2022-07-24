@@ -18,7 +18,7 @@ def showmain(request):
 def showjypage(request):
     return render(request, "main/jypage.html")
 
-
+@login_required
 def detail(request, id):
     post = get_object_or_404(Post, pk = id)
     all_comments = post.comments.all().order_by('-created_at')
@@ -31,7 +31,7 @@ def posts(request):
 def new(request):
     return render(request, 'main/new.html')
 
-
+@login_required
 def create(request):
     new_post = Post()
     new_post.title = request.POST['title']
@@ -42,12 +42,12 @@ def create(request):
     new_post.save()
     return redirect('main:detail', new_post.id)
 
-
+@login_required
 def edit(request, id):
     edit_post = Post.objects.get(id=id)
     return render(request, 'main/edit.html', {'post': edit_post})
 
-
+@login_required
 def update(request, id):
     update_post = Post.objects.get(id=id)
     update_post.title = request.POST['title']
@@ -58,12 +58,14 @@ def update(request, id):
     update_post.save()
     return redirect("main:detail", update_post.id)
 
+
+@login_required
 def delete(request, id):
     delete_post = Post.objects.get(id = id)
     delete_post.delete()
     return redirect('main:posts')
 
-
+@login_required
 def create_comment(request, post_id):
     new_comment = Comment()
     new_comment.writer = request.user
@@ -72,12 +74,16 @@ def create_comment(request, post_id):
     new_comment.save()
     return redirect('main:detail', post_id)
 
+
+@login_required
 def edit_comment(request, post_id, comment_id):
     # edit_post = Post.objects.get(id=id)
     post = Post.objects.get(id = post_id)
     edit_comment = Comment.objects.get(id = comment_id)
     return render(request, 'main/edit_comment.html', {'post':post, 'comment':edit_comment})
 
+
+@login_required
 def update_comment(request, post_id, comment_id):
     update_comment=get_object_or_404(Comment,pk=comment_id)
     if request.method == "POST":
@@ -87,6 +93,7 @@ def update_comment(request, post_id, comment_id):
     return render(request,'main:detail',{'comment':update_comment})
 
 
+@login_required
 def delete_comment(request, comment_id):
     delete_comment = Comment.objects.get(id=comment_id)
     delete_comment.delete()
@@ -126,6 +133,7 @@ def dislike_toggle(request, post_id):
     }
     return HttpResponse(json.dumps(context), content_type = "application/json")
 
+@login_required
 def my_like(request, user_id):
     user = User.objects.get(id = user_id)
     like_list = Like.objects.filter(user = user)

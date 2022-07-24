@@ -24,9 +24,17 @@
               >Home</a>
             
           </li>
+          {% if user.is_authenticated %}
           <li class="nav-item">
             <a  class="nav-link active"
             aria-current="page" href = "{% url 'main:my_like' request.user.id %}" >내 좋아요 목록</a>
+          
+          </li>
+          {% else %}
+          <li class="nav-item">
+            <a  class="nav-link active"
+            aria-current="page"></a>
+          {% endif %}
           </li>
           <li class="nav-item dropdown">
             <a
