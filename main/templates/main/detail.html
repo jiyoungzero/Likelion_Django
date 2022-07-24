@@ -82,7 +82,10 @@
     {% endfor %}
     <hr>
     <a href="{% url 'main:posts' %} ">⏪이전페이지로</a>
-
+    {% for message in messages %}
+        {{ message.tag }}
+        {{ message }}
+    {% endfor %}
 
 
     </div>

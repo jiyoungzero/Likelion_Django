@@ -47,6 +47,10 @@ def create(request):
 @login_required
 def edit(request, id):
     edit_post = Post.objects.get(id=id)
+    if request.user != edit_post.writer:
+        messages.warning(request, "게시글 수정 권한이 없습니다.")
+        return redirect("main:detail", id)
+    
     return render(request, 'main/edit.html', {'post': edit_post})
 
 @login_required
@@ -64,6 +68,10 @@ def update(request, id):
 @login_required
 def delete(request, id):
     delete_post = Post.objects.get(id = id)
+    
+    if request.user != delete_post.writer:
+        messages.warning(request, "게시글 삭제 권한이 없습니다.")
+        return redirect("main:detail", id)
     delete_post.delete()
     return redirect('main:posts')
 
@@ -82,6 +90,11 @@ def edit_comment(request, post_id, comment_id):
     # edit_post = Post.objects.get(id=id)
     post = Post.objects.get(id = post_id)
     edit_comment = Comment.objects.get(id = comment_id)
+    
+    if request.user != edit_comment.writer:
+        messages.warning(request, "댓글 수정 권한이 없습니다.")
+        return redirect("main:detail", post_id)
+    
     return render(request, 'main/edit_comment.html', {'post':post, 'comment':edit_comment})
 
 
@@ -91,13 +104,18 @@ def update_comment(request, post_id, comment_id):
     if request.method == "POST":
         update_comment.content =request.POST['content']
         update_comment.save()
-        return redirect('main:detail', update_comment.id)
+        return redirect('main:detail', update_comment.post.id)
     return render(request,'main:detail',{'comment':update_comment})
 
 
 @login_required
 def delete_comment(request, comment_id):
     delete_comment = Comment.objects.get(id=comment_id)
+    
+    if request.user != delete_comment.writer:
+        messages.warning(request, "댓글 삭제 권한이 없습니다.")
+        return redirect("main:detail", delete_comment.post.id)
+    
     delete_comment.delete()
     return redirect('main:detail', delete_comment.post.id)
 
