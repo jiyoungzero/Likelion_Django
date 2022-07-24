@@ -24,3 +24,21 @@
     color: rgb(85, 62, 22);
     text-align: center;
 }
+
+.my_like_list{
+    margin-top: 50px;
+    margin-bottom: 50px;
+    color: rgb(85, 62, 22);
+}
+
+.posts_list{
+    margin-top: 40px;
+    margin-bottom: 40px;
+    color: rgb(85, 62, 22);
+}
+
+.post_title{
+    margin-top: 40px;
+    margin-bottom: 40px;
+    color: rgb(85, 62, 22);
+}

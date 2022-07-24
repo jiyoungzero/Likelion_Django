@@ -4,20 +4,20 @@
 {% block content %}
     {% if user.is_authenticated %}
     <br>
-    <h1>글 목록</h1><br>
+    <h2 class="posts_list" style="font-weight:bold;">📑 게시글 목록</h2><br>
     <div>
 
         {% for post in posts %}
         <div>
-            <h1>{{post.title}}</h1>
+            <h3>{{post.title}}</h3>
             {% if post.writer %}
             {% if 'user' in post.writer.username %}
-            <h3>작성자 : {{ post.writer.last_name }} {{post.writer.first_name }}</h3>
+            <h4>작성자 : {{ post.writer.last_name }} {{post.writer.first_name }}</h4>
             {% else %}
-            <h3>작성자 : {{ post.writer }}</h3>
+            <h4>작성자 : {{ post.writer }}</h4>
             {% endif %}
             {% else %}
-            <h3>작성자 : 알 수 없음</h3>
+            <h4>작성자 : 알 수 없음</h4>
             {% endif %}
             
             {{post.summary}}<br>

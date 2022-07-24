@@ -1,6 +1,6 @@
 {% extends 'base.html' %} {% block content %} {% load static%}
 
-<h1>{{post.title}}</h1>
+<h1 class="post_title" style="font-weight:bold;">{{post.title}}</h1>
 {% if post.writer %}
     {% if 'user' in post.writer.username %}
         <h3>작성자 : {{ post.writer.last_name }} {{ post.writer.first_name }}</h3>
@@ -79,6 +79,8 @@
     <a href="{%  url 'main:delete_comment' comment.id %}">댓글 삭제</a>
      </div>
     {% endfor %}
+    <hr>
+    <a href="{% url 'main:posts' %} ">⏪이전페이지로</a>
 
 
 

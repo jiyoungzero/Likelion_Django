@@ -3,7 +3,7 @@
 
 {% block content %}
     <div class="container">
-        <h2 style="font-weight:bold;">👍 내 좋아요 목록 👍</h2>
+        <h2 class="my_like_list" style="font-weight:bold;">👍 내 좋아요 목록 👍</h2>
         <div class="row">
             {% for like in like_list %}
                 <div class="col-md-3 col-6 item_list__card">
@@ -14,17 +14,19 @@
                             </a>
                             <div class="card-body">
                                 <h5 class="card-title">{{ like.post.title }}</h5>
-                                <a href="{% url 'main:detail' like.post.pk %}" class="btn btn-outline-primary">보러가기</a>
+                                <a href="{% url 'main:detail' like.post.pk %}" class="btn btn-outline-primary">보러가기</a><br>
                                </div>
                         {% else %}
                             <div class="card-body">
                                 <h5 class="card-title">{{ like.post.title }}</h5>
-                                <a href="{% url 'main:detail' like.post.pk %}" class="btn btn-outline-primary">보러가기</a>
+                                <a href="{% url 'main:detail' like.post.pk %}" class="btn btn-outline-primary">보러가기</a><br>
                             </div>
                         {% endif %}
                     </div>
                 </div>
+                <hr>
             {% endfor %}
+            <br>
         </div>
     </div>
 {% endblock content %}
