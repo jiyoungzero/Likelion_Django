@@ -78,6 +78,7 @@
     <a href="{%  url 'main:edit_comment' post.id comment.id %}">댓글 수정</a>
     <a href="{%  url 'main:delete_comment' comment.id %}">댓글 삭제</a>
      </div>
+     <br>
     {% endfor %}
     <hr>
     <a href="{% url 'main:posts' %} ">⏪이전페이지로</a>

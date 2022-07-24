@@ -3,7 +3,12 @@
 {% block content %}
 
 <div class="container">
-    <h1>{{user.username}}</h1>
+    <br>
+    <br>
+    <h1 class="hello_user">{{user.username}}님, 안녕하세요</h1>    
+    <br><hr>
+    <h2 class="hello_user">{{user.username}}님의 글</h2>   
+    <br>
     <div>
         {% for post in posts %}
 

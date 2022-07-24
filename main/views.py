@@ -6,6 +6,8 @@ from django.views.decorators.http import require_POST
 from django.http import HttpResponse
 import json
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+
 
 # mainpage view 함수
 def showmain(request):
