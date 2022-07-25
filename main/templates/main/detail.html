@@ -85,11 +85,18 @@
 
 {% comment %} 게시글/댓글 수정,삭제 권한 메세지 {% endcomment %}
     {% for message in messages %}
-    <div class="alert {{ message.tags }} alert-auto-dismissible alert-dismissible notification-container text-center" role="alert">
-            {% comment %} <span aria-hidden="true">&times;</span> {% endcomment %}
-            🚫{{ message }}🚫
+    <div style="font-weight:bold;color:black;" class="alert {{ message.tags }} alert-auto-dismissible alert-dismissible notification-container text-center" role="alert">
+            <span aria-hidden="true">&times;</span>
+        📢 {{ message }}
     </div>
-    {% endfor %}
+    {% endfor %}        
+    <script>
+        window.setTimeout(function() {
+            $(".alert-auto-dismissible").fadeTo(500, 0).slideUp(500, function(){
+                $(this).remove();
+            });
+        }, 1000);
+    </script>
 
 
     </div>
