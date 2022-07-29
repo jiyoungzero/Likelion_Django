@@ -5,8 +5,30 @@
 <div class="container">
     <br>
     <br>
-    <h1 class="hello_user">{{user.username}}님, 안녕하세요</h1>    
+    <h1 class="hello_user">{{user.username}}님, 안녕하세요</h1>  
+    {% if request.user != user %}
+    {% if request.user.profile in user.profile.followers.all %}
+        <a href="{% url 'users:follow' user.id %}"><button type="button" class="btn btn-outline-info">언팔로우</button></a>
+    {% else %}
+        <a href="{% url 'users:follow' user.id %}"><button type="button" class="btn btn-info">팔로우</button></a>
+    {% endif %}
+    {% endif %}   
     <br><hr>
+
+    <div class="container">
+        <h3> 팔로워{{ user.profile.followers.count }}명</h3>
+        {%for follower in user.profile.followers.all %}
+            <a href="{% url 'users:mypage' follower.user.id %}">{{ follower.user.username }}</a>
+        {% endfor %}
+
+        <h3>팔로잉{{ user.profile.followings.count }}명</h3>
+        {% for following in user.profile.followings.all %}
+            <a href="{%url 'users:mypage' following.user.id %}">{{ following.user.username }}</a>
+        {% endfor %}
+    </div>
+
+    </h1><hr>
+    
     <h2 class="hello_user">{{user.username}}님의 글</h2>   
     <br>
     <div>
